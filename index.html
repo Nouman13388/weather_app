@@ -7,24 +7,27 @@
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
-    <div class="container">
-      <div class="weather-container" >
-        <div class="weather-card" >
-          
-        </div>
-      </div>
-      <div class="search-container">
+    <section class="container">
+      <section class="weather-container"></section>
+      <section class="search-container">
         <input
           type="text"
           id="search-bar"
+          list="suggestions"
           class="search-bar"
           placeholder="City Name....."
         />
         <button class="search-button" onclick="getWeather()">Search</button>
-      </div>
-
-
-    </div>
+      </section>
+      <datalist id="suggestions">
+        <option value="Lahore"></option>
+        <option value="Karachi"></option>
+        <option value="Islamabad"></option>
+        <option value="NY"></option>
+        <option value="LA"></option>
+        <option value="Dallas"></option>
+      </datalist>
+    </section>
 
     <script src="script.js"></script>
   </body>

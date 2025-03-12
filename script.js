@@ -7,18 +7,19 @@ function getWeather() {
     .then((response) => response.json())
     .then((data) => {
       if (data && data.current) {
-        const weatherCard = document.createElement("div");
+        const weatherCard = document.createElement("section");
         weatherCard.id = "weather-card";
+        weatherCard.className = "weather-card";
         weatherCard.innerHTML = `
             <img class="weather-icon" src="" alt="">
-            <div class="temperature"></div>
-            <div class="description"></div>
-            <div class="location"></div>
+            <section class="temperature"></section>
+            <section class="description"></section>
+            <section class="location"></section>
           `;
         const weatherContainer = document.querySelector(".weather-container");
 
         weatherContainer.appendChild(weatherCard);
-
+          
         weatherCard.querySelector(
           ".temperature"
         ).textContent = `${data.current.temp_c}°C`;
@@ -40,3 +41,4 @@ function getWeather() {
       alert("Error fetching weather data. Please try again.");
     });
 }
+
