@@ -1,3 +1,18 @@
+fetch("cities.json")
+  .then((response) => response.json())
+  .then((data) => {
+    const suggestions = document.getElementById("suggestions");
+
+    data.cities.forEach((city) => {
+      const option = document.createElement("option");
+      option.value = city;
+      suggestions.appendChild(option);
+    });
+  })
+  .catch((error) => {
+    console.error("Error loading city data:", error);
+  });
+
 function getWeather() {
   const city = document.getElementById("search-bar").value;
   const key = "f527ddffd52e46f286372143250703";
@@ -19,7 +34,7 @@ function getWeather() {
         const weatherContainer = document.querySelector(".weather-container");
 
         weatherContainer.appendChild(weatherCard);
-          
+
         weatherCard.querySelector(
           ".temperature"
         ).textContent = `${data.current.temp_c}°C`;
@@ -41,4 +56,3 @@ function getWeather() {
       alert("Error fetching weather data. Please try again.");
     });
 }
-
