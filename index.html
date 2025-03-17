@@ -4,19 +4,22 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Weather App</title>
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
     <section class="container">
       <nav class="navbar">
+       <div class="logo-container">
+        <img src="favicon.ico" class="logo" alt="nothing">
         <h1>Weather App</h1>
-        
+       </div>
         <section class="search-container">
           <input
             type="text"
             id="search-bar"
-            list="suggestions"
             class="search-bar"
+            list="suggestions"
             placeholder="City Name....."
           />
           <button class="search-button" id="search-button">Search</button>

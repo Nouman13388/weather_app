@@ -1,7 +1,6 @@
 body{
     margin: 0;
     padding: 0;
-    /* width: 100%; */
 }
 
 .navbar {
@@ -19,6 +18,15 @@ body{
     color: white;
 }
 
+.logo-container {
+    display: flex;
+    align-items: center;
+}
+
+.logo {
+    width: 4rem;
+    height: 4rem;
+}
 
 .weather-icon {
     width: 100px;
@@ -51,7 +59,6 @@ body{
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 1rem;
 }
 
 .search-bar {
@@ -61,6 +68,7 @@ body{
     border-radius: 5px;
     border: 1px solid #333;
     margin: 1rem;
+    height: 2rem;
 }
 
 .search-button {
@@ -70,4 +78,5 @@ body{
     border-radius: 5px;
     padding: 5px 10px;
     cursor: pointer;
+    height: 2rem;
 }
