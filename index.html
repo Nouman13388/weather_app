@@ -8,17 +8,22 @@
   </head>
   <body>
     <section class="container">
+      <nav class="navbar">
+        <h1>Weather App</h1>
+        
+        <section class="search-container">
+          <input
+            type="text"
+            id="search-bar"
+            list="suggestions"
+            class="search-bar"
+            placeholder="City Name....."
+          />
+          <button class="search-button" id="search-button">Search</button>
+        </section>
+      </nav>
       <section class="weather-container"></section>
-      <section class="search-container">
-        <input
-          type="text"
-          id="search-bar"
-          list="suggestions"
-          class="search-bar"
-          placeholder="City Name....."
-        />
-        <button class="search-button" onclick="getWeather()">Search</button>
-      </section>
+
       <datalist id="suggestions"> </datalist>
     </section>
 

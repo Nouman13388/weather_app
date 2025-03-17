@@ -1,4 +1,4 @@
-fetch("cities.json")
+fetch("citiesName.json")
   .then((response) => response.json())
   .then((data) => {
     const suggestions = document.getElementById("suggestions");
@@ -12,6 +12,9 @@ fetch("cities.json")
   .catch((error) => {
     console.error("Error loading city data:", error);
   });
+
+const searchButton = document.getElementById("search-button");
+searchButton.addEventListener("click", getWeather);
 
 function getWeather() {
   const city = document.getElementById("search-bar").value;
