@@ -62,7 +62,7 @@ function getWeather() {
 
         weatherCard.appendChild(expandedWeatherCard);
         weatherCard.onmouseover = function () {
-          weatherCard.style.transform = "scale(1.1)";
+          weatherCard.style.transform = "scale(1.3)";
           weatherCard.style.transition = "0.5s";
           expandedWeatherCard.style.display = "block";
           expandedWeatherCard.querySelector(
@@ -84,6 +84,7 @@ function getWeather() {
           weatherCard.style.transform = "scale(1)";
           weatherCard.style.transition = "0.5s";
         };
+
       } else {
         alert("Weather data could not be fetched. Please try again.");
       }
