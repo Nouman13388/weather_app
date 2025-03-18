@@ -16,8 +16,6 @@ fetch("citiesName.json")
 const searchButton = document.getElementById("search-button");
 searchButton.addEventListener("click", getWeather);
 
-
-
 function getWeather() {
   const city = document.getElementById("search-bar").value;
   const key = "f527ddffd52e46f286372143250703";
@@ -51,14 +49,41 @@ function getWeather() {
         const weatherIcon = weatherCard.querySelector(".weather-icon");
         weatherIcon.src = data.current.condition.icon;
         weatherIcon.alt = data.current.condition.text;
+
+        const expandedWeatherCard = document.createElement("section");
+        expandedWeatherCard.id = "expanded-weather-card";
+        expandedWeatherCard.className = "expanded-weather-card";
+        expandedWeatherCard.innerHTML = `
+            <section class="wind"></section>
+            <section class="humidity"></section>
+            <section class="feels-like"></section>
+            <section class="uv"></section>
+          `;
+
+        weatherCard.appendChild(expandedWeatherCard);
         weatherCard.onmouseover = function () {
           weatherCard.style.transform = "scale(1.1)";
           weatherCard.style.transition = "0.5s";
-        }
+          expandedWeatherCard.style.display = "block";
+          expandedWeatherCard.querySelector(
+            ".wind"
+          ).textContent = `Wind: ${data.current.wind_kph} km/h`;
+          expandedWeatherCard.querySelector(
+            ".humidity"
+          ).textContent = `Humidity: ${data.current.humidity}%`;
+          expandedWeatherCard.querySelector(
+            ".feels-like"
+          ).textContent = `Feels Like: ${data.current.feelslike_c}°C`;
+          expandedWeatherCard.querySelector(
+            ".uv"
+          ).textContent = `UV: ${data.current.uv}`;
+        };
+
         weatherCard.onmouseout = function () {
+          expandedWeatherCard.style.display = "none";
           weatherCard.style.transform = "scale(1)";
           weatherCard.style.transition = "0.5s";
-        }
+        };
       } else {
         alert("Weather data could not be fetched. Please try again.");
       }
@@ -68,4 +93,3 @@ function getWeather() {
       alert("Error fetching weather data. Please try again.");
     });
 }
-

@@ -8,7 +8,7 @@ body {
   margin: 0;
   padding: 0;
   height: 100%;
-  overflow: auto;
+  scroll-behavior: smooth;
 }
 
 .navbar {
@@ -50,13 +50,8 @@ body {
   align-items: baseline;
   padding: 40px;
   margin: 40px;
-  position: fixed;
 }
 
-/* .weather-container :hover {
-  transform: scale(1.1);
-  transition: transform 0.5s;
-} */
 
 .weather-card {
   background-color: #f1f1f1;
