@@ -16,6 +16,8 @@ fetch("citiesName.json")
 const searchButton = document.getElementById("search-button");
 searchButton.addEventListener("click", getWeather);
 
+
+
 function getWeather() {
   const city = document.getElementById("search-bar").value;
   const key = "f527ddffd52e46f286372143250703";
@@ -35,7 +37,6 @@ function getWeather() {
             <section class="location"></section>
           `;
         const weatherContainer = document.querySelector(".weather-container");
-
         weatherContainer.appendChild(weatherCard);
 
         weatherCard.querySelector(
@@ -50,6 +51,14 @@ function getWeather() {
         const weatherIcon = weatherCard.querySelector(".weather-icon");
         weatherIcon.src = data.current.condition.icon;
         weatherIcon.alt = data.current.condition.text;
+        weatherCard.onmouseover = function () {
+          weatherCard.style.transform = "scale(1.1)";
+          weatherCard.style.transition = "0.5s";
+        }
+        weatherCard.onmouseout = function () {
+          weatherCard.style.transform = "scale(1)";
+          weatherCard.style.transition = "0.5s";
+        }
       } else {
         alert("Weather data could not be fetched. Please try again.");
       }
@@ -59,3 +68,4 @@ function getWeather() {
       alert("Error fetching weather data. Please try again.");
     });
 }
+
