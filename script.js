@@ -12,7 +12,15 @@ fetch("citiesName.json")
   .catch((error) => {
     console.error("Error loading city data:", error);
   });
+var jsonData = [];
 
+var retrievedData = localStorage.getItem("weatherData");
+console.log("Retreived Data: ", retrievedData);
+if (retrievedData) {
+  const weatherContainer = document.querySelector(".weather-container");
+  retrievedData = JSON.parse(retrievedData);
+  weatherContainer.innerHTML = retrievedData;
+}
 const searchButton = document.getElementById("search-button");
 searchButton.addEventListener("click", getWeather);
 
@@ -85,6 +93,9 @@ function getWeather() {
           weatherCard.style.transition = "0.5s";
         };
 
+        jsonData = JSON.stringify(weatherContainer.outerHTML);
+        localStorage.setItem("weatherData", jsonData);
+        console.log(jsonData);
       } else {
         alert("Weather data could not be fetched. Please try again.");
       }
