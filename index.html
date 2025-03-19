@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Weather App</title>
+    <link rel="icon" type="image/x-icon" href="Icon.ico" />
+    <link rel="stylesheet" href="style.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Merriweather+Sans:ital,wght@0,800;1,800&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <section class="container">
+      <nav class="navbar">
+        <div class="logo-container">
+          <img src="Icon.ico" class="logo" alt="nothing" />
+          <h1>Weather App</h1>
+        </div>
+        <section class="search-container">
+          <input
+            type="text"
+            id="search-bar"
+            class="search-bar"
+            list="suggestions"
+            placeholder="City Name....."
+          />
+          <button class="search-button" id="search-button">Search</button>
+        </section>
+      </nav>
+      <section class="weather-container"></section>
+
+      <datalist id="suggestions"> </datalist>
+    </section>
+
+    <script src="script.js"></script>
+  </body>
+</html>
