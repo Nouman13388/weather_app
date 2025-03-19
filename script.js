@@ -1,3 +1,4 @@
+// localStorage.removeItem("weatherData");
 fetch("citiesName.json")
   .then((response) => response.json())
   .then((data) => {
@@ -12,96 +13,85 @@ fetch("citiesName.json")
   .catch((error) => {
     console.error("Error loading city data:", error);
   });
-var jsonData = [];
 
-var retrievedData = localStorage.getItem("weatherData");
-console.log("Retreived Data: ", retrievedData);
-if (retrievedData) {
-  const weatherContainer = document.querySelector(".weather-container");
-  retrievedData = JSON.parse(retrievedData);
-  weatherContainer.innerHTML = retrievedData;
+var localData = localStorage.getItem("weatherData");
+
+console.log("Data has been loaded successfully from local storage:\n", localData);
+if (localData) {
+  localData = JSON.parse(localData);
+  displayWeatherCard(localData);
+} else {
+  console.log("No data found in local storage");
 }
+
 const searchButton = document.getElementById("search-button");
 searchButton.addEventListener("click", getWeather);
 
 function getWeather() {
   const city = document.getElementById("search-bar").value;
   const key = "f527ddffd52e46f286372143250703";
-  const url = `http://api.weatherapi.com/v1/current.json?key=${key}&q=${city}`;
+  const url = `https://api.weatherapi.com/v1/current.json?key=${key}&q=${city}`;
 
   fetch(url)
     .then((response) => response.json())
     .then((data) => {
       if (data && data.current) {
-        const weatherCard = document.createElement("section");
-        weatherCard.id = "weather-card";
-        weatherCard.className = "weather-card";
-        weatherCard.innerHTML = `
-            <img class="weather-icon" src="" alt="">
-            <section class="temperature"></section>
-            <section class="description"></section>
-            <section class="location"></section>
-          `;
-        const weatherContainer = document.querySelector(".weather-container");
-        weatherContainer.appendChild(weatherCard);
-
-        weatherCard.querySelector(
-          ".temperature"
-        ).textContent = `${data.current.temp_c}°C`;
-        weatherCard.querySelector(".description").textContent =
-          data.current.condition.text;
-        weatherCard.querySelector(
-          ".location"
-        ).textContent = `${data.location.name}, ${data.location.region}`;
-
-        const weatherIcon = weatherCard.querySelector(".weather-icon");
-        weatherIcon.src = data.current.condition.icon;
-        weatherIcon.alt = data.current.condition.text;
-
-        const expandedWeatherCard = document.createElement("section");
-        expandedWeatherCard.id = "expanded-weather-card";
-        expandedWeatherCard.className = "expanded-weather-card";
-        expandedWeatherCard.innerHTML = `
-            <section class="wind"></section>
-            <section class="humidity"></section>
-            <section class="feels-like"></section>
-            <section class="uv"></section>
-          `;
-
-        weatherCard.appendChild(expandedWeatherCard);
-        weatherCard.onmouseover = function () {
-          weatherCard.style.transform = "scale(1.3)";
-          weatherCard.style.transition = "0.5s";
-          expandedWeatherCard.style.display = "block";
-          expandedWeatherCard.querySelector(
-            ".wind"
-          ).textContent = `Wind: ${data.current.wind_kph} km/h`;
-          expandedWeatherCard.querySelector(
-            ".humidity"
-          ).textContent = `Humidity: ${data.current.humidity}%`;
-          expandedWeatherCard.querySelector(
-            ".feels-like"
-          ).textContent = `Feels Like: ${data.current.feelslike_c}°C`;
-          expandedWeatherCard.querySelector(
-            ".uv"
-          ).textContent = `UV: ${data.current.uv}`;
+        const weatherData = {
+          location: `${data.location.name}, ${data.location.region}`,
+          temperature: `${data.current.temp_c}°C`,
+          description: data.current.condition.text,
+          wind_kph: data.current.wind_kph,
+          humidity: data.current.humidity,
+          feelslike_c: data.current.feelslike_c,
+          uv: data.current.uv,
+          icon: data.current.condition.icon,
         };
 
-        weatherCard.onmouseout = function () {
-          expandedWeatherCard.style.display = "none";
-          weatherCard.style.transform = "scale(1)";
-          weatherCard.style.transition = "0.5s";
-        };
+        displayWeatherCard(weatherData);
 
-        jsonData = JSON.stringify(weatherContainer.outerHTML);
-        localStorage.setItem("weatherData", jsonData);
-        console.log(jsonData);
+        localStorage.setItem("weatherData", JSON.stringify(weatherData));
+        
+        console.log("Data Stored Successfully:", weatherData);
       } else {
-        alert("Weather data could not be fetched. Please try again.");
+        console.error("Weather data could not be fetched. Please try again.");
       }
     })
     .catch((error) => {
       console.error("Error fetching weather data:", error);
-      alert("Error fetching weather data. Please try again.");
     });
+}
+
+function displayWeatherCard(weatherData) {
+  const weatherContainer = document.querySelector(".weather-container");
+  const weatherCard = document.createElement("section");
+  weatherCard.id = "weather-card";
+  weatherCard.className = "weather-card";
+  weatherCard.innerHTML = `
+    <img class="weather-icon" src="${weatherData.icon}" alt="${weatherData.description}">
+    <section class="temperature">${weatherData.temperature}</section>
+    <section class="description">${weatherData.description}</section>
+    <section class="location">${weatherData.location}</section>
+    <section class="expanded-weather-card" style="display:none;">
+      <section class="wind">Wind: ${weatherData.wind_kph} km/h</section>
+      <section class="humidity">Humidity: ${weatherData.humidity}%</section>
+      <section class="feels-like">Feels Like: ${weatherData.feelslike_c}°C</section>
+      <section class="uv">UV: ${weatherData.uv}</section>
+    </section>
+  `;
+  
+  weatherContainer.appendChild(weatherCard);
+
+  const expandedWeatherCard = weatherCard.querySelector(".expanded-weather-card");
+
+  weatherCard.addEventListener("mouseover", () => {
+    weatherCard.style.transform = "scale(1.3)";
+    weatherCard.style.transition = "0.5s";
+    expandedWeatherCard.style.display = "block";
+  });
+
+  weatherCard.addEventListener("mouseout", () => {
+    weatherCard.style.transform = "scale(1)";
+    weatherCard.style.transition = "0.5s";
+    expandedWeatherCard.style.display = "none";
+  });
 }
